@@ -1,4 +1,10 @@
-const apiUrl = 'https://exemplo.com/api/dados';
+var xhr = new XMLHttpRequest();
+
+xhr.open('GET', 'https://ea3baf39-e1e9-4737-9c28-8a869b79c933-00-1spc09uux8b1t.riker.repl.co/', true);
+
+xhr.onload = function() {
+  if (xhr.status >= 200 && xhr.status < 300) {
+const apiUrl = 'https://dynast.io/';
 
 // Fazendo uma solicitação GET para a API usando fetch
 fetch(apiUrl)
@@ -18,3 +24,14 @@ fetch(apiUrl)
     // Captura e trata erros na solicitação
     console.error('Erro:', error);
   });
+    console.log('connected');
+  } else {
+    console.error('fetch error', xhr.statusText);
+  }
+};
+
+xhr.onerror = function() {
+  alert('cant fetch');
+};
+
+xhr.send();
