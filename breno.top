@@ -6,28 +6,19 @@ xhr.onload = function() {
   if (xhr.status >= 200 && xhr.status < 300) {
 const apiUrl = 'https://exemplo.com/api/dados';
 
+// Requisição usando fetch
 fetch(apiUrl)
   .then(response => {
     if (!response.ok) {
-      throw new Error('Erro ao acessar a API');
+      throw new Error('Erro ao carregar os dados da API');
     }
-    // Verifica o tipo de conteúdo da resposta
-    const contentType = response.headers.get('content-type');
-    if (contentType && contentType.includes('application/json')) {
-      // Se for JSON, converte para JSON
-      return response.json();
-    } else {
-      // Se não for JSON, obtém o texto da resposta
-      return response.text();
-    }
+    return response.json();
   })
   .then(data => {
-    // Aqui você pode usar os dados recebidos da API
-    console.log(data);
+    console.log('Dados da API:', data);
+    // Aqui você pode manipular os dados conforme necessário
   })
-  .catch(error => {
-    console.error('Erro:', error);
-  });
+  .catch(error => console.error('Erro ao obter dados da API:', error));
     console.log('connected');
   } else {
     console.error('fetch error', xhr.statusText);
