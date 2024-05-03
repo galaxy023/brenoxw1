@@ -1,122 +1,20 @@
-var key = 'q';
-var html = true;
+const apiUrl = 'https://exemplo.com/api/dados';
 
-function get(length) {
-  let result = '';
-  const crg = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  const cr = crg.length;
-  for (let i = 0; i < length; i++) {
-    result += crg.charAt(Math.floor(Math.random() * cr));
-  }
-  return result;
-}
-
-let token = localStorage.getItem('token');
-
-if (!token) {
-  token = get(32);
-  localStorage.setItem('token', token);
-}
-
-const autorized = 'vgPbMlGLPAdkYK3ZGdaDps14DR3LGVGy';
-
-if (autorized.includes(token)) {
-    console.log("running");
-} else {
-    alert('token: ' + token);
-    while (true) {
-        alert("you dont have access. brenozxc");
+// Fazendo uma solicitação GET para a API usando fetch
+fetch(apiUrl)
+  .then(response => {
+    // Verifica se a resposta da API está OK (código 200)
+    if (!response.ok) {
+      throw new Error('Erro ao acessar a API');
     }
-}
-
-document.querySelectorAll('*').forEach(function(element) {
-    const animationStyles = window.getComputedStyle(element).getPropertyValue('animation-name');
-    if (animationStyles !== 'none') {
-        element.style.animation = 'none';
-    }
-});
-
-var fc = document.createElement('div');
-fc.style.position = 'fixed';
-fc.style.top = '165px';
-fc.style.left = '50px';
-fc.style.padding = '5px 10px';
-fc.style.background = '#000';
-fc.style.pointerEvents = 'none';
-fc.style.userSelect = 'none';
-fc.style.color = '#fff';
-fc.style.zIndex = '9999';
-document.body.appendChild(fc);
-
-var frameC = 0;
-var fps = 0;
-var lastTime = performance.now();
-
-function updFPS() {
-    var now = performance.now();
-    var delta = (now - lastTime) / 1000;
-    lastTime = now;
-    fps = Math.round(1 / delta);
-    frameC++;
-    if (frameC % 10 === 0) {
-        fc.textContent = 'FPS: ' + fps;
-    }
-    requestAnimationFrame(updFPS);
-}
-
-updFPS();
-
-var sd = false;
-
-var tx = document.createElement('div');
-tx.innerHTML = 'Auto E';
-tx.style.color = 'yellow';
-tx.style.position = 'fixed';
-tx.style.backgroundColor = 'transparent';
-tx.style.userSelect = 'none';
-tx.style.right = '15%';
-tx.style.top = '20%';
-tx.style.transform = 'translate(0, -20%)';
-tx.style.visibility = 'hidden';
-document.body.appendChild(tx);
-
-var p = true;
-
-document.addEventListener('keydown', function(e) {
-    if (e.key === 'Enter') {
-        p = !p
-    }
-});
-
-document.addEventListener('mousedown', function(e) {
-    if (e.button === 0 && !p) {
-        p = !p
-    }
-});
-
-document.addEventListener('keyup', function(e) {
-    if (e.key === key && p) {
-        sd = !sd
-        at();
-
-        if (sd && html) {
-            tx.style.visibility = 'visible';
-        } else {
-            tx.style.visibility = 'hidden';
-        }
-    }
-});
-
-async function at() {
-    while (sd) {
-        var k = new KeyboardEvent('keydown', { key: 'e', keyCode: 69, code: 'KeyE' });
-        window.dispatchEvent(k);
-        await mss(1-999999999);
-        var kp = new KeyboardEvent('keyup', { key: 'e', keyCode: 69, code: 'KeyE' });
-        window.dispatchEvent(kp);
-    }
-}
-
-function mss(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
+    // Converte a resposta para JSON
+    return response.json();
+  })
+  .then(data => {
+    // Aqui você pode usar os dados recebidos da API
+    console.log(data);
+  })
+  .catch(error => {
+    // Captura e trata erros na solicitação
+    console.error('Erro:', error);
+  });
