@@ -1,8 +1,8 @@
-//var xhr = new XMLHttpRequest();
+// var xhr = new XMLHttpRequest();
 
-//xhr.open('GET', 'https://ea3baf39-e1e9-4737-9c28-8a869b79c933-00-1spc09uux8b1t.riker.repl.co/', true);
+// xhr.open('GET', 'https://ea3baf39-e1e9-4737-9c28-8a869b79c933-00-1spc09uux8b1t.riker.repl.co/', true);
 
-//xhr.onload = function() {
+// xhr.onload = function() {
  // if (xhr.status >= 200 && xhr.status < 300) {
 var xhr = new XMLHttpRequest();
 var url = "https://chicago-0-alpaca.dynast.cloud:8443/";
@@ -24,11 +24,11 @@ xhr.abort();
  //   console.log('connected');
  // } else {
    // console.error('fetch error', xhr.statusText);
-  //}
-//};
+  // }
+// };
 
-xhr.onerror = function() {
-  alert('cant fetch');
-};
+// xhr.onerror = function() {
+//  alert('cant fetch');
+// };
 
-xhr.send();
+// xhr.send();
