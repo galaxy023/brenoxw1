@@ -9,8 +9,12 @@ var url = "https://chicago-0-alpaca.dynast.cloud:8443/";
 
 xhr.open("GET", url, true);
 xhr.onreadystatechange = function () {
-  if (xhr.readyState === 4 && xhr.status === 200) {
-    console.log(xhr.responseText);
+  if (xhr.readyState === 4) {
+    if (xhr.status === 200) {
+      console.log(xhr.responseText);
+    } else {
+      console.log("Erro ao acessar o servidor. Status:", xhr.status);
+    }
   }
 };
 xhr.send();
