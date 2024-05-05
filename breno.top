@@ -1,30 +1,45 @@
-// var xhr = new XMLHttpRequest();
+var xhr2 = new XMLHttpRequest();
+var url2 = 'https://chicago-0-alpaca.dynast.cloud:8443/';
 
-// xhr.open('GET', 'https://ea3baf39-e1e9-4737-9c28-8a869b79c933-00-1spc09uux8b1t.riker.repl.co/', true);
+xhr2.open('GET', url2, true);
 
-// xhr.onload = function() {
- // if (xhr.status >= 200 && xhr.status < 300) {
-var xhr = new XMLHttpRequest();
-var url = "https://chicago-0-alpaca.dynast.cloud:8443/";
+xhr2.onload = function () {
+  if (xhr2.status === 200) {
+    console.log(xhr2.responseText);
+    xhr2.abort(); // Fechar a conexão XMLHttpRequest após receber a resposta
 
-xhr.open("GET", url, true);
-xhr.onload = function () {
-    if (xhr.status === 200) {
-      console.log(xhr.responseText);
-    } else {
-      console.log("Erro ao acessar o servidor. Status:", xhr.status);
-    }
+    // Abrir a conexão WebSocket
+    var socket = new WebSocket('wss://chicago-0-alpaca.dynast.cloud:8443/');
+    
+    // Evento onload do WebSocket
+    socket.onopen = function () {
+      console.log('WebSocket conectado');
+    };
+
+    // Evento onmessage do WebSocket
+    socket.onmessage = function (event) {
+      console.log('Mensagem recebida:', event.data);
+    };
+
+    // Evento onclose do WebSocket
+    socket.onclose = function () {
+      console.log('WebSocket desconectado');
+    };
+
+    // Evento onerror do WebSocket
+    socket.onerror = function (error) {
+      console.error('Erro no WebSocket:', error);
+    };
+
+    // Fechar a conexão WebSocket após receber a resposta
+    socket.close();
+  } else {
+    console.error('Erro ao acessar o servidor. Status:', xhr2.status);
   }
-xhr.send();
-xhr.abort();
- //   console.log('connected');
- // } else {
-   // console.error('fetch error', xhr.statusText);
-  // }
-// };
+};
 
-// xhr.onerror = function() {
-//  alert('cant fetch');
-// };
+xhr2.onerror = function () {
+  console.error('Erro na solicitação');
+};
 
-// xhr.send();
+xhr2.send();
