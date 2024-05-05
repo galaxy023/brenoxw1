@@ -6,7 +6,23 @@ xhr.onload = function() {
   if (xhr.status >= 200 && xhr.status < 300) {
 let websocket = new WebSocket('wss://chicago-0-alpaca.dynast.cloud:8443/ws/2094439748-379497847-7d8c');
 
-// Para fechar a conexão
+websocket.onopen = function() {
+  console.log('Conexão WebSocket estabelecida.');
+};
+
+websocket.onclose = function(event) {
+  console.log('Conexão WebSocket fechada:', event.code, event.reason);
+};
+
+websocket.onerror = function(error) {
+  console.error('Erro na conexão WebSocket:', error);
+};
+
+websocket.onmessage = function(event) {
+  console.log('Mensagem recebida:', event.data);
+};
+
+// Para fechar a conexão (opcional)
 websocket.close();
     console.log('connected');
   } else {
