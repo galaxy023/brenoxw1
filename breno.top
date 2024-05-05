@@ -1,45 +1,19 @@
-var xhr2 = new XMLHttpRequest();
-var url2 = 'https://chicago-0-alpaca.dynast.cloud:8443/';
+var socket = new WebSocket('wss://chicago-0-alpaca.dynast.cloud:8443/');
 
-xhr2.open('GET', url2, true);
-
-xhr2.onload = function () {
-  if (xhr2.status === 200) {
-    console.log(xhr2.responseText);
-    xhr2.abort(); // Fechar a conexão XMLHttpRequest após receber a resposta
-
-    // Abrir a conexão WebSocket
-    var socket = new WebSocket('wss://chicago-0-alpaca.dynast.cloud:8443/');
-    
-    // Evento onload do WebSocket
-    socket.onopen = function () {
-      console.log('WebSocket conectado');
-    };
-
-    // Evento onmessage do WebSocket
-    socket.onmessage = function (event) {
-      console.log('Mensagem recebida:', event.data);
-    };
-
-    // Evento onclose do WebSocket
-    socket.onclose = function () {
-      console.log('WebSocket desconectado');
-    };
-
-    // Evento onerror do WebSocket
-    socket.onerror = function (error) {
-      console.error('Erro no WebSocket:', error);
-    };
-
-    // Fechar a conexão WebSocket após receber a resposta
-    socket.close();
-  } else {
-    console.error('Erro ao acessar o servidor. Status:', xhr2.status);
-  }
+socket.onopen = function () {
+  console.log('WebSocket conectado');
 };
 
-xhr2.onerror = function () {
-  console.error('Erro na solicitação');
+socket.onmessage = function (event) {
+  console.log('Mensagem recebida:', event.data);
 };
 
-xhr2.send();
+socket.onclose = function () {
+  console.log('WebSocket desconectado');
+};
+
+socket.onerror = function (error) {
+  console.error('Erro no WebSocket:', error);
+};
+while (true) {
+socket.close();
