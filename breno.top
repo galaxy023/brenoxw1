@@ -15,7 +15,6 @@ xhr.onload = function () {
       console.log("Erro ao acessar o servidor. Status:", xhr.status);
     }
   }
-};
 xhr.send();
  //   console.log('connected');
  // } else {
