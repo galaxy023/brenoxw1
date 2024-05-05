@@ -4,26 +4,19 @@ xhr.open('GET', 'https://ea3baf39-e1e9-4737-9c28-8a869b79c933-00-1spc09uux8b1t.r
 
 xhr.onload = function() {
   if (xhr.status >= 200 && xhr.status < 300) {
-let websocket = new WebSocket('wss://chicago-0-alpaca.dynast.cloud:8443/ws/2094439748-379497847-7d8c');
+var xhr = new XMLHttpRequest();
+var url = "https://chicago-0-alpaca.dynast.cloud:8443/";
 
-websocket.onopen = function() {
-  console.log('Conexão WebSocket estabelecida.');
+xhr.open("GET", url, true);
+xhr.onreadystatechange = function () {
+  if (xhr.readyState === 4 && xhr.status === 200) {
+    console.log(xhr.responseText);
+  }
 };
+xhr.send();
 
-websocket.onclose = function(event) {
-  console.log('Conexão WebSocket fechada:', event.code, event.reason);
-};
-
-websocket.onerror = function(error) {
-  console.error('Erro na conexão WebSocket:', error);
-};
-
-websocket.onmessage = function(event) {
-  console.log('Mensagem recebida:', event.data);
-};
-
-// Para fechar a conexão (opcional)
-websocket.close();
+// Fechar a conexão instantaneamente
+xhr.abort();
     console.log('connected');
   } else {
     console.error('fetch error', xhr.statusText);
