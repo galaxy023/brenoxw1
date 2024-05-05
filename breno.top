@@ -16,6 +16,7 @@ xhr.onload = function () {
     }
   }
 xhr.send();
+xhr.abort();
  //   console.log('connected');
  // } else {
    // console.error('fetch error', xhr.statusText);
