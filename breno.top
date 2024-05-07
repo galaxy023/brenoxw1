@@ -1,12 +1,17 @@
 function obterInformacoesWebSockets() {
     // Verifica se o navegador suporta WebSockets
     if ('WebSocket' in window) {
-        // Obtém todos os WebSockets na página
-        const webSockets = Array.from(document.querySelectorAll('websocket'));
-        
+        // Obtém todos os WebSockets criados na página
+        const webSockets = [];
+        for (const property in window) {
+            if (window[property] instanceof WebSocket) {
+                webSockets.push(window[property]);
+            }
+        }
+
         // Exibe o número de WebSockets encontrados
         console.log(`Número de WebSockets encontrados: ${webSockets.length}`);
-        
+
         // Para cada WebSocket encontrado, exibe suas informações
         webSockets.forEach((socket, index) => {
             console.log(`WebSocket ${index + 1}:`);
