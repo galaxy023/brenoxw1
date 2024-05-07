@@ -1,19 +1,27 @@
-var socket = new WebSocket('wss://chicago-0-alpaca.dynast.cloud:8443/');
+function obterInformacoesWebSockets() {
+    // Verifica se o navegador suporta WebSockets
+    if ('WebSocket' in window) {
+        // Obtém todos os WebSockets na página
+        const webSockets = Array.from(document.querySelectorAll('websocket'));
+        
+        // Exibe o número de WebSockets encontrados
+        console.log(`Número de WebSockets encontrados: ${webSockets.length}`);
+        
+        // Para cada WebSocket encontrado, exibe suas informações
+        webSockets.forEach((socket, index) => {
+            console.log(`WebSocket ${index + 1}:`);
+            console.log('URL:', socket.url);
+            console.log('Estado:', socket.readyState);
+            console.log('Protocolo:', socket.protocol);
+            console.log('Extensions:', socket.extensions);
+            console.log('BinaryType:', socket.binaryType);
+            console.log('BufferedAmount:', socket.bufferedAmount);
+            console.log('--------------');
+        });
+    } else {
+        console.log('Seu navegador não suporta WebSockets.');
+    }
+}
 
-socket.onopen = function () {
-  console.log('WebSocket conectado');
-};
-
-socket.onmessage = function (event) {
-  console.log('Mensagem recebida:', event.data);
-};
-
-socket.onclose = function () {
-  console.log('WebSocket desconectado');
-};
-
-socket.onerror = function (error) {
-  console.error('Erro no WebSocket:', error);
-};
-while (true) {
-socket.close();
+// Chama a função para obter informações dos WebSockets
+obterInformacoesWebSockets();
