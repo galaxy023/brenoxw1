@@ -1,37 +1,18 @@
-function obterInformacoesWebSocketsPorURL(urlDesejada) {
-    // Verifica se o navegador suporta WebSockets
-    if ('WebSocket' in window) {
-        // Obtém todos os WebSockets criados na página
-        const webSockets = [];
-        for (const property in window) {
-            if (window[property] instanceof WebSocket) {
-                webSockets.push(window[property]);
-            }
-        }
-
-        // Filtra os WebSockets pela URL desejada
-        const webSocketsFiltrados = webSockets.filter(socket => socket.url === urlDesejada);
-
-        // Exibe informações dos WebSockets encontrados
-        if (webSocketsFiltrados.length > 0) {
-            console.log(`Número de WebSockets encontrados com a URL ${urlDesejada}: ${webSocketsFiltrados.length}`);
-            webSocketsFiltrados.forEach((socket, index) => {
-                console.log(`WebSocket ${index + 1}:`);
-                console.log('URL:', socket.url);
-                console.log('Estado:', socket.readyState);
-                console.log('Protocolo:', socket.protocol);
-                console.log('Extensions:', socket.extensions);
-                console.log('BinaryType:', socket.binaryType);
-                console.log('BufferedAmount:', socket.bufferedAmount);
-                console.log('--------------');
-            });
-        } else {
-            console.log(`Nenhum WebSocket encontrado com a URL ${urlDesejada}.`);
-        }
-    } else {
-        console.log('Seu navegador não suporta WebSockets.');
-    }
+function redirecionarRequisicoes(urlRequisicao) {
+    fetch(urlRequisicao)
+        .then(response => response.text()) // Ou .json() se a resposta for JSON
+        .then(data => {
+            // Processar a resposta como necessário
+            console.log(data); // Exemplo: exibir a resposta no console
+        })
+        .catch(error => {
+            console.error('Ocorreu um erro:', error);
+        });
 }
 
-// Chama a função para obter informações dos WebSockets pela URL desejada
-obterInformacoesWebSocketsPorURL('wss://chicago-0-alpaca.dynast.cloud:8443/ws/2212273178-497189433-26bc');
+// Exemplo de uso:
+const urlServidorRedirecionado = 'https://sao-paulo-0-alpaca.dynast.cloud:8443/';
+const urlRequisicaoOriginal = 'https://russia-1-alpaca.dynast.cloud:8443/';
+
+// Redirecionar a requisição para o servidor desejado
+redirecionarRequisicoes(urlServidorRedirecionado + urlRequisicaoOriginal);
