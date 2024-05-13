@@ -1,13 +1,37 @@
-const url = window.location.href; // Obtém a URL da página atual
-let server = '';
-
-// Verifica se a URL contém informações sobre o servidor
-if (url.includes('meuservidor.com')) {
-    server = 'Meu Servidor';
-} else if (url.includes('outroservidor.com')) {
-    server = 'Outro Servidor';
-} else {
-    server = 'Servidor Desconhecido';
+function executarAcao() {
+  // Exemplo de ação: alterar o texto de um elemento com ID 'resultado'
+  document.getElementById('resultado').innerText = 'Ação executada!';
 }
 
-console.log(`O servidor responsável pela ação é: ${server}`);
+// Função para enviar a solicitação AJAX
+function enviarRequisicao() {
+  // Criar um objeto XMLHttpRequest
+  var xhr = new XMLHttpRequest();
+
+  // Configurar a solicitação AJAX
+  xhr.open('GET', 'http://localhost:3000/ping?host=URL_DA_SUA_PAGINA', true); // Substitua 'URL_DA_SUA_PAGINA' pela URL real da sua página
+  xhr.setRequestHeader('Content-Type', 'application/json');
+
+  // Função de callback para lidar com a resposta do servidor
+  xhr.onload = function () {
+    if (xhr.status >= 200 && xhr.status < 300) {
+      // A resposta foi recebida com sucesso
+      var response = JSON.parse(xhr.responseText);
+      console.log('Tempo de resposta:', response.time);
+
+      // Executar ação na página após receber a resposta do servidor
+      executarAcao();
+    } else {
+      // O servidor retornou um erro
+      console.error('Erro ao enviar solicitação:', xhr.statusText);
+    }
+  };
+
+  // Função de callback para lidar com erros de rede
+  xhr.onerror = function () {
+    console.error('Erro de rede ao enviar solicitação.');
+  };
+
+  // Enviar a solicitação AJAX
+  xhr.send();
+}
