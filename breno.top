@@ -9,7 +9,7 @@ function enviarRequisicao() {
   var xhr = new XMLHttpRequest();
 
   // Configurar a solicitação AJAX
-  xhr.open('GET', 'http://localhost:3000/ping?host=URL_DA_SUA_PAGINA', true); // Substitua 'URL_DA_SUA_PAGINA' pela URL real da sua página
+  xhr.open('GET', 'https://london-0-alpaca.dynast.cloud:8443/', true); // Substitua 'URL_DA_SUA_PAGINA' pela URL real da sua página
   xhr.setRequestHeader('Content-Type', 'application/json');
 
   // Função de callback para lidar com a resposta do servidor
