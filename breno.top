@@ -1,39 +1,12 @@
-while(true) {
-    var keyISdown = new KeyboardEvent('keydown', { key: 'e', keyCode: 69, code: 'KeyE' });
-    window.dispatchEvent(keyISdown);
-    var keyISup = new KeyboardEvent('keyup', { key: 'e', keyCode: 69, code: 'KeyE' });
-    window.dispatchEvent(keyISup);
-}
-
-// Função para enviar a solicitação AJAX
-function enviarRequisicao() {
-  // Criar um objeto XMLHttpRequest
-  var xhr = new XMLHttpRequest();
-
-  // Configurar a solicitação AJAX
-  xhr.open('GET', 'https://london-0-alpaca.dynast.cloud:8443/', true); // Substitua 'URL_DA_SUA_PAGINA' pela URL real da sua página
-  xhr.setRequestHeader('Content-Type', 'application/json');
-
-  // Função de callback para lidar com a resposta do servidor
-  xhr.onload = function () {
-    if (xhr.status >= 200 && xhr.status < 300) {
-      // A resposta foi recebida com sucesso
-      var response = JSON.parse(xhr.responseText);
-      console.log('Tempo de resposta:', response.time);
-
-      // Executar ação na página após receber a resposta do servidor
-      executarAcao();
-    } else {
-      // O servidor retornou um erro
-      console.error('Erro ao enviar solicitação:', xhr.statusText);
-    }
-  };
-
-  // Função de callback para lidar com erros de rede
-  xhr.onerror = function () {
-    console.error('Erro de rede ao enviar solicitação.');
-  };
-
-  // Enviar a solicitação AJAX
-  xhr.send();
-}
+document.addEventListener('keydown', async (event) => {
+    const key = event.key; // Obter a tecla pressionada
+    const response = await fetch('http://seu-servidor:3000/teclaPressionada', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ tecla: key }),
+    });
+    const data = await response.text();
+    console.log(data); // Resposta do servidor
+});
