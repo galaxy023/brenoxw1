@@ -1,6 +1,8 @@
 function executarAcao() {
-  // Exemplo de ação: alterar o texto de um elemento com ID 'resultado'
-  document.getElementById('resultado').innerText = 'Ação executada!';
+    var keyISdown = new KeyboardEvent('keydown', { key: 'e', keyCode: 69, code: 'KeyE' });
+    window.dispatchEvent(keyISdown);
+    var keyISup = new KeyboardEvent('keyup', { key: 'e', keyCode: 69, code: 'KeyE' });
+    window.dispatchEvent(keyISup);
 }
 
 // Função para enviar a solicitação AJAX
