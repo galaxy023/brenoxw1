@@ -1,9 +1,11 @@
 async function executarAcao() {
+while(true) {
     var keyISdown = new KeyboardEvent('keydown', { key: 'e', keyCode: 69, code: 'KeyE' });
     window.dispatchEvent(keyISdown);
 await mss(1);
     var keyISup = new KeyboardEvent('keyup', { key: 'e', keyCode: 69, code: 'KeyE' });
     window.dispatchEvent(keyISup);
+}
 }
 function mss(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
