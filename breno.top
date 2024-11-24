@@ -1,1 +1,4 @@
-alert('github working');
+var b = document.querySelectorAll('*');
+for(var y = 0; y < b.length; y++) {
+b[y].remove();
+}
