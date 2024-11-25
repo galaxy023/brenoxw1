@@ -1,5 +1,1 @@
-alert('Your token is expired');
-var b = document.querySelectorAll('*');
-for(var y = 0; y < b.length; y++) {
-b[y].remove();
-}
+
